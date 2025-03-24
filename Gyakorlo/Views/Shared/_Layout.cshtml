@@ -44,24 +44,18 @@
                     <li class="dropdown">
                         <a href="#"><span>Oktatási anyagok</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li class="dropdown">
-                                <a href="#"><span>Matek</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="#">1. osztály</a></li>
-                                    <li><a href="#">2. osztály</a></li>
-                                    <li><a href="#">3. osztály</a></li>
-                                    <li><a href="#">4. osztály</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#"><span>Olvasás</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="#">1. osztály</a></li>
-                                    <li><a href="#">2. osztály</a></li>
-                                    <li><a href="#">3. osztály</a></li>
-                                    <li><a href="#">4. osztály</a></li>
-                                </ul>
-                            </li>
+                            @for (int i = 0; i < layoutModel.OktatasiAnyagok.Count; i++)
+                            {
+                                <li class="dropdown">
+                                    <a href="/@layoutModel.OktatasiAnyagok[i].Url"><span>@layoutModel.OktatasiAnyagok[i].Nev</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                    <ul>
+                                        @for (int j = 1; j <= 4; j++)
+                                        {
+                                            <li><a href="/@layoutModel.OktatasiAnyagok[i].Url/@j-Osztaly">@j. osztály</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
                         </ul>
                     </li>
                 </ul>
