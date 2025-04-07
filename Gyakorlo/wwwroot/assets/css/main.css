@@ -77,6 +77,8 @@ a:hover {
   text-decoration: none;
 }
 
+
+
 h1,
 h2,
 h3,
@@ -89,7 +91,7 @@ h6 {
 
 /* PHP Email Form Messages
 ------------------------------*/
-.php-email-form .error-message {
+    .php-email-form .error-message {
   display: none;
   background: #df1529;
   color: #ffffff;
@@ -1420,4 +1422,9 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+
+.fooldal {
+    text-align: left;
 }
