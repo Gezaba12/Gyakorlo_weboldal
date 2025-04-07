@@ -1,0 +1,62 @@
+﻿@using Gyakorlo.Models.Home
+@model RegisztracioViewModel
+
+<section id="contact" class="contact section">
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Regisztráció</h2>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+            <div class="col-gy-4">
+                <div class="col-gy-4">
+                    <form action="/Regisztracio" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                        <div class="row gy-4">
+
+                            <div class="col-md-6">
+                                <label asp-for="Nev" class="pb-2">Név</label>
+                                <input asp-for="Nev" class="form-control">
+                                <span asp-validation-for="Nev" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="pb-2">Email</label>
+                                <input type="email" class="form-control" asp-for="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Jelszo" class="pb-2">Jelszó</label>
+                                <input type="password" asp-for="Jelszo" id="jeszo-field" class="form-control">
+                                <span asp-validation-for="Jelszo" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="JelszoUjra" class="pb-2">Jelszó újra</label>
+                                <input type="password" class="form-control" asp-for="JelszoUjra" id="jelszo-ujra-field">
+                                <span asp-validation-for="JelszoUjra" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label asp-for="Tipus" class="pb-2">Regisztráció mint</label>
+                                <select class="form-control" asp-for="Tipus" id="tipus">
+                                    <option disabled selected>------</option>
+                                    <option value="diak">Diák</option>
+                                    <option value="tanar">Tanár</option>
+                                </select>
+                                <span asp-validation-for="Tipus" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12 text-center">
+                                <button type="submit">Regisztráció</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
