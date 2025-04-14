@@ -4,6 +4,7 @@ using Gyakorlo.Models;
 using Gyakorlo.Data;
 using Gyakorlo.Models.Home;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Gyakorlo.Controllers;
 
@@ -39,11 +40,39 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Bejelentkezes(bool? sikeres)
+    public IActionResult Bejelentkezes()
     {
-        return View(sikeres);
+        //await _homeModel.SignInManager.SignOutAsync();
+        BejelentkezesViewModel felhasznalo = new BejelentkezesViewModel();
+        return View(felhasznalo);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Bejelentkezes(BejelentkezesViewModel felhasznalo)
+    {
+        if (ModelState.IsValid)
+        {
+            var result = await _homeModel.SignInManager.PasswordSignInAsync(
+                felhasznalo.Email,
+                felhasznalo.Jelszo,
+                false,
+                false
+            );
+
+            if (result.Succeeded)
+            {
+                return Redirect("/");
+            }
+        }
+        ModelState.AddModelError("", "Hibás felhasználónév vagy jelszó.");
+        return View(felhasznalo);
+    }
+
+    public async Task<IActionResult> Kijelentkezes()
+    {
+        await _homeModel.SignInManager.SignOutAsync();
+        return RedirectToAction("/");
+    }
     public IActionResult Regisztracio()
     {
         return View();
@@ -66,7 +95,14 @@ public class HomeController : Controller
             if (result.Succeeded)
             {
                 await _homeModel.UserManager.AddToRoleAsync(user, model.Tipus);
-                return RedirectToAction("Bejelentkezes", new {sikeres = true});
+                
+                await _homeModel.SignInManager.PasswordSignInAsync(
+                model.Email,
+                model.Jelszo,
+                false,
+                false
+            );
+                return RedirectToAction("/");
             }
         }
         return View(model);

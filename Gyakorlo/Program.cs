@@ -1,5 +1,6 @@
 using Gyakorlo.Controllers;
 using Gyakorlo.Data;
+using Gyakorlo.Models;
 using Gyakorlo.Models.Home;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IHomeModel, HomeModel>();
 builder.Services.AddScoped<IAppRepo, AppRepo>();
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<Felhasznalo>, CustomClaimsPrincipalFactory>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -23,8 +25,15 @@ builder.Services.AddIdentity<Felhasznalo, IdentityRole>()
 // Irányítsd át egy saját oldalra ha nem megfelelõ a jogosúltság
 builder.Services.ConfigureApplicationCookie(options =>
 {
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+    options.SlidingExpiration = true;
+    options.Cookie.IsEssential = true;
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.Expiration = null; // fontos!
     options.AccessDeniedPath = "/";
 });
+
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
