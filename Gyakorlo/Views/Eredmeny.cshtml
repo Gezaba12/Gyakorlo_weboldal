@@ -1,0 +1,25 @@
+﻿@using Gyakorlo.Models.Matematika
+@model Feladatlap
+<section id="resume" class="resume section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Eredmény</h2>
+        <p>@ViewBag.Uzenet</p>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+            <div class="col-gy-4">
+                <div class="col-gy-4">
+                    <p>Helyes válaszok: <strong>@ViewBag.HelyesDb/@ViewBag.Osszes</strong> @ViewBag.Szazalek%</p>
+
+                    <a asp-action="@Context.Request.Path" class="btn btn-secondary">Új feladatsor</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section><!-- /Resume Section -->

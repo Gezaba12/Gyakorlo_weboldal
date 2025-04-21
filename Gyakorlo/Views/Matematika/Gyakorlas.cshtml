@@ -1,0 +1,38 @@
+﻿@using Gyakorlo.Models.Matematika
+@model Feladatlap
+<section id="resume" class="resume section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>@Model.Evfolyam osztályos matekpéldák</h2>
+        <p>Sok sikert! A végén vissza ellenőrizheted az eredményed. Ne feledd, gyakorlás teszi a mestert!</p>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+            <div class="col-gy-4">
+                <div class="col-gy-4">
+                    <form action="" method="post">
+                        @for (int i = 0; i < Model.Feladatok.Count; i++)
+                        {
+                            var feladat = Model.Feladatok[i];
+                            var input = $"<input name=\"Feladatok[{i}].Valasz\" class='form-control d-inline' style='width: 40px' />";
+                            var kerdes = feladat.Keplet.Replace("%%", input);
+                            <div class="mb-2">
+                                @Html.Hidden($"Feladatok[{i}].Keplet", feladat.Keplet)
+                                @Html.Hidden($"Feladatok[{i}].Eredmeny", feladat.Eredmeny)
+                                @Html.Raw(kerdes)
+                            </div>
+                        }
+
+                        <input type="hidden" name="Evfolyam" value="@Model.Evfolyam" />
+                        <button type="submit" class="btn btn-primary">Ellenőrzés</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section><!-- /Resume Section -->

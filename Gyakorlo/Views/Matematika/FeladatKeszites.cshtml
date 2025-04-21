@@ -1,0 +1,38 @@
+﻿@model FeladatlapGeneralasViewModel
+<section id="resume" class="resume section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>@ViewBag.Osztaly. osztályos matekpéldák</h2>
+        <p>Témazáró generálása</p>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+            <div class="col-gy-4">
+                <div class="col-gy-4">
+                    <form method="post" action="/FeladatlapGeneralas/Matematika/@ViewBag.Osztaly-Osztaly" target="_blank">
+                        <input type="hidden" name="evfolyam" value="elso" />
+
+                        @for(int i = 0; i < Model.Tipusok.Count; i++)
+                        {
+                            <label>
+                                <input type="checkbox" name="Tipusok[@i].TipusNev" value="@Model.Tipusok[i].TipusNev" checked /> @Model.Tipusok[i].TipusNev
+                            </label>
+                            <label>
+                                <input type="hidden" name="Tipusok[@i].TipusLeiras" value="@Model.Tipusok[i].TipusLeiras" />
+                                <input type="text" name="Tipusok[@i].TipusDb" value="5" style='width: 40px' /> Db
+                            </label>
+                            <br />
+
+                            <br />
+                        }
+                        <button type="submit" class="btn btn-primary">Feladatsor generálása</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

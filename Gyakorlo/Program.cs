@@ -4,6 +4,7 @@ using Gyakorlo.Models;
 using Gyakorlo.Models.Home;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     options.Cookie.Expiration = null; // fontos!
+    options.LoginPath = "/Bejelentkezes";
     options.AccessDeniedPath = "/";
 });
 
@@ -57,6 +59,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+//RotativaConfiguration.Setup(app.Environment.WebRootPath, "Rotativa");
+app.UseRotativa();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -90,5 +94,9 @@ app.MapControllerRoute(
     defaults: new {controller = "Home"})
     .WithStaticAssets();
 
+app.MapControllerRoute(
+    name: "matematika",
+    pattern: "{action}/{controller}/{osztaly:int}-Osztaly")
+    .WithStaticAssets();
 
 app.Run();

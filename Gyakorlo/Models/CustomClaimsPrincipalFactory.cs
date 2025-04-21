@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
+using System.Security.Principal;
 
 namespace Gyakorlo.Models
 {
@@ -20,6 +21,7 @@ namespace Gyakorlo.Models
 
             // Add custom claim
             identity.AddClaim(new Claim("Nev", user.Nev ?? ""));
+            identity.AddClaim(new Claim("Pontok", user.Pontok.ToString()));
 
             return identity;
         }

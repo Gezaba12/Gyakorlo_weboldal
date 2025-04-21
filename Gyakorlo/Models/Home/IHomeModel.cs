@@ -9,6 +9,7 @@ namespace Gyakorlo.Models.Home
 
         UserManager<Felhasznalo> UserManager { get; }
         SignInManager<Felhasznalo> SignInManager { get; }
+        IAppRepo Repo { get; set; }
 
     }
 }
