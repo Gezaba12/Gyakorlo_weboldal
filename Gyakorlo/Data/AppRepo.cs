@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Gyakorlo.Migrations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gyakorlo.Data
 {
@@ -16,14 +17,9 @@ namespace Gyakorlo.Data
             return await dbContext.Csoportok.ToListAsync();
         }
 
-        public void Add(string s)
+        public void UzenetFelvesz(Uzenetek uzenet)
         {
-
-        }
-
-        public string Get()
-        {
-            return "";
+            dbContext.UzenetFelvesz(uzenet);
         }
     }
 }

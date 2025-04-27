@@ -3,7 +3,7 @@
     ViewData["Title"] = layoutModel.Menupontok
                         .Where(x => x.Action == ViewContext.RouteData.Values["action"]?.ToString())
                         .FirstOrDefault()
-                        .Title;
+                        ?.Title;
 }
 <!DOCTYPE html>
 <html lang="hu">
@@ -36,9 +36,14 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    @for (int i = 0; i < layoutModel.Menupontok.Count; i++)
+                    @{
+                        var megjelenitendoMenupontok = layoutModel.Menupontok
+                        .Where(x => !User.Identity.IsAuthenticated || !x.Bejelentkezve)
+                        .ToList();
+                    }
+                    @for (int i = 0; i < megjelenitendoMenupontok.Count; i++)
                     {
-                        <li><a href="/@layoutModel.Menupontok[i].Url" class="@(ViewContext.RouteData.Values["action"]?.ToString() == layoutModel.Menupontok[i].Action ? "active" : "")">@layoutModel.Menupontok[i].Nev</a></li>
+                        <li><a href="/@megjelenitendoMenupontok[i].Url" class="@(ViewContext.RouteData.Values["action"]?.ToString() == megjelenitendoMenupontok[i].Action ? "active" : "")">@megjelenitendoMenupontok[i].Nev</a></li>
                     }
 
                     <li class="dropdown">
@@ -47,11 +52,18 @@
                             @for (int i = 0; i < layoutModel.OktatasiAnyagok.Count; i++)
                             {
                                 <li class="dropdown">
-                                    <a href="/@layoutModel.OktatasiAnyagok[i].Url"><span>@layoutModel.OktatasiAnyagok[i].Nev</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                    <a href="#"><span>@layoutModel.OktatasiAnyagok[i].Nev</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                     <ul>
+                                        @{
+                                            string link = "Gyakorlas";
+                                            if (User.IsInRole("tanar"))
+                                            {
+                                                link = "FeladatKeszites";
+                                            }
+                                        }
                                         @for (int j = 1; j <= 4; j++)
                                         {
-                                            <li><a href="/@layoutModel.OktatasiAnyagok[i].Url/@j-Osztaly">@j. osztály</a></li>
+                                            <li><a href="/@link/@layoutModel.OktatasiAnyagok[i].Url/@j-Osztaly">@j. osztály</a></li>
                                         }
                                     </ul>
                                 </li>
@@ -65,6 +77,10 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                 @:Bejelentkezve: <a href="/Kijelentkezes" title="Kijelentkezés"> @User.FindFirst("Nev")?.Value </a>
+                    if (User.IsInRole("diak"))
+                    {
+                        @:Pontok: @User.FindFirst("Pontok")?.Value 
+                    }
                 }
                 <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -119,7 +135,7 @@
     <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
     <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="~/assets/js/main.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -37,7 +37,18 @@ public class HomeController : Controller
 
     public IActionResult Kapcsolat()
     {
-        return View();
+        return View(new KapcsolatViewModel());
+    }
+
+    [HttpPost]
+    public IActionResult Kapcsolat(KapcsolatViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            _homeModel.Repo.UzenetFelvesz(new Uzenetek { Email= model.Email, Nev= model.Nev, Uzenet= model.Uzenet});
+            model.Visszajelzes = "Üzenetet Fogadtuk, Köszönjük a megkeresést!";
+        }
+        return View(model);
     }
 
     public IActionResult Bejelentkezes()
