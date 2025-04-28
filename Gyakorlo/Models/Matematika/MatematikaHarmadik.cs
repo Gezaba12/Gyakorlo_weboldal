@@ -37,19 +37,19 @@ namespace Gyakorlo.Models.Matematika
         }
         public MatematikaHarmadik(int db)
         {
-            for (int i = 0; i < db; i++)
-            {
+            var methods = this.GetType()
+                                .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+                                .Where(m => m.GetCustomAttribute<FeladatTipusAttribute>() != null)
+                                .ToList();
 
-                Feladat feladat;
-                if (rnd.Next(0, 5) <= 2)
+            for (int i = 0; i < methods.Count; i++)
+            {
+                for (int j = 0; j < db; j++)  // ahol 'darabszam' pl. 10 vagy amennyit akarsz
                 {
-                    feladat = Osszeadas();
+                    var randomMethod = methods[i];
+                    var feladat = (Feladat)randomMethod.Invoke(this, null);
+                    Feladatok.Add(feladat);
                 }
-                else
-                {
-                    feladat = Kivonas();
-                }
-                Feladatok.Add(feladat);
             }
         }
 

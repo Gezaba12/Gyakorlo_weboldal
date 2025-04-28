@@ -91,7 +91,7 @@ namespace Gyakorlo.Controllers
 
             if (felhasznalo != null)
             {
-                felhasznalo.Pontok += 5; // vagy amit szeretnél
+                felhasznalo.Pontok += helyes;
 
                 var result = await _homeModel.UserManager.UpdateAsync(felhasznalo);
 
@@ -148,10 +148,23 @@ namespace Gyakorlo.Controllers
         {
 
             List<Dictionary<string, List<Feladat>>> feladatModel;
+            IMatematika generator;
             switch (model.Osztaly)
             {
                 case 1:
-                    MatematikaElso generator = new MatematikaElso(model);
+                    generator = new MatematikaElso(model);
+                    feladatModel = generator.Temazarok;
+                    break;
+                case 2:
+                    generator = new MatematikaMasodik(model);
+                    feladatModel = generator.Temazarok; 
+                    break;
+                case 3:
+                    generator = new MatematikaHarmadik(model);
+                    feladatModel = generator.Temazarok;
+                    break;
+                case 4:
+                    generator = new MatematikaNegyedik(model);
                     feladatModel = generator.Temazarok;
                     break;
                 default:
