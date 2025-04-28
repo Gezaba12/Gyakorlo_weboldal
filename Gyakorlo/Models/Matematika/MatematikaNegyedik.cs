@@ -119,8 +119,8 @@ namespace Gyakorlo.Models.Matematika
         [FeladatTipus("Szorzás", "Írd be a hiányzó számokat.", "Szorzas")]
         Feladat Szorzas()
         {
-            int szam1 = rnd.Next(1, 10);
-            int szam2 = rnd.Next(1, 10);
+            int szam1 = rnd.Next(100, 900);
+            int szam2 = rnd.Next(100, 900);
             int helyesValasz;
             string keplet = "";
 

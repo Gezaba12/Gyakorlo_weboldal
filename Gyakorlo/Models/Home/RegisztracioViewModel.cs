@@ -15,7 +15,8 @@ namespace Gyakorlo.Models.Home
         [DataType(DataType.Password)]
         public string Jelszo { get; set; }
 
-        [Required]
+       
+        [Required(ErrorMessage = "Jelszó újra megadása kötelező")]
         [DataType(DataType.Password)]
         [Compare("Jelszo", ErrorMessage = "A jelszavak nem egyeznek")]
         public string JelszoUjra { get; set; }
