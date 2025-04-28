@@ -115,6 +115,71 @@ namespace Gyakorlo.Models.Matematika
 
             return feladat;
         }
+
+        [FeladatTipus("Szorzás", "Írd be a hiányzó számokat.", "Szorzas")]
+        Feladat Szorzas()
+        {
+            int szam1 = rnd.Next(1, 10);
+            int szam2 = rnd.Next(1, 10);
+            int helyesValasz;
+            string keplet = "";
+
+            
+            int valasztas = rnd.Next(0, 10);
+
+            if (valasztas <= 2)
+            {
+                keplet = szam1 + "*%%=" + (szam1 * szam2);
+                helyesValasz = szam2;
+            }
+            else if (valasztas <= 6)
+            {
+                keplet = "%%*" + szam2 + "=" + (szam1 * szam2);
+                helyesValasz = szam1;
+            }
+            else
+            {
+                keplet = szam1 + "*" + szam2 + "=%%";
+                helyesValasz = (szam1 * szam2);
+            }
+
+            Feladat feladat = new Feladat() { Keplet = keplet, Eredmeny = helyesValasz };
+
+            return feladat;
+        }
+
+        [FeladatTipus("Osztás", "Írd be a hiányzó számokat.", "Osztas")]
+        Feladat Osztas()
+        {
+            int szam1 = rnd.Next(1, 10);
+            int szam2 = rnd.Next(1, 10);
+            int helyesValasz;
+            string keplet = "";
+
+            
+            int valasztas = rnd.Next(0, 10);
+
+            if (valasztas <= 2)
+            {
+                keplet = (szam1 * szam2) + "/%%=" + szam1;
+                helyesValasz = szam2;
+            }
+            else if (valasztas <= 6)
+            {
+                keplet = "%%/" + szam2 + "=" + szam1;
+                helyesValasz = (szam1 * szam2);
+            }
+            else
+            {
+                keplet = (szam1 * szam2) + "/" + szam2 + "=%%";
+                helyesValasz = szam1;
+            }
+
+            Feladat feladat = new Feladat() { Keplet = keplet, Eredmeny = helyesValasz };
+
+            return feladat;
+        }
+
     }
 }
 
