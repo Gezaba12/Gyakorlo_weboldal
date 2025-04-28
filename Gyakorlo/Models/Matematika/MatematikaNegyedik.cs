@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Gyakorlo.Models.Matematika
 {
-    public class MatematikaNegyedik
+    public class MatematikaNegyedik : IMatematika
     {
         Random rnd = new Random();
         public List<Feladat> Feladatok { get; set; } = new();

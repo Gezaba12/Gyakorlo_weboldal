@@ -21,17 +21,26 @@ namespace Gyakorlo.Controllers
         }
         public IActionResult Gyakorlas(int osztaly)
         {
+            IMatematika generator;
             Feladatlap model;
             switch (osztaly)
             {
                 case 1:
-                    MatematikaElso generator = new MatematikaElso(10);
+                    generator = new MatematikaElso(10);
                     model = new Feladatlap() { Feladatok=generator.Feladatok, Evfolyam=osztaly, Tipus="Gyakorlas"};
                     break;
-               /* case 2:
-                    MatematikaMasodik generator = new MatematikaMasodik(10);
+                case 2:
+                    generator = new MatematikaMasodik(10);
                     model = new Feladatlap() { Feladatok = generator.Feladatok, Evfolyam = osztaly, Tipus = "Gyakorlas" };
-                   break; */
+                    break;
+                case 3:
+                    generator = new MatematikaHarmadik(10);
+                    model = new Feladatlap() { Feladatok = generator.Feladatok, Evfolyam = osztaly, Tipus = "Gyakorlas" };
+                    break;
+                case 4:
+                    generator = new MatematikaNegyedik(10);
+                    model = new Feladatlap() { Feladatok = generator.Feladatok, Evfolyam = osztaly, Tipus = "Gyakorlas" };
+                    break;
                 default:
                     model = null;
                     break;
@@ -107,6 +116,15 @@ namespace Gyakorlo.Controllers
             {
                 case 1:
                     tipus = typeof(MatematikaElso);
+                    break;
+                case 2:
+                    tipus = typeof(MatematikaMasodik);
+                    break;
+                case 3:
+                    tipus = typeof(MatematikaHarmadik);
+                    break;
+                case 4:
+                    tipus = typeof(MatematikaNegyedik);
                     break;
                 default:
                     return NotFound();
