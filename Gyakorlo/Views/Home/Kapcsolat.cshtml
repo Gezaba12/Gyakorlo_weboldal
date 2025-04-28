@@ -67,8 +67,15 @@
                         <div class="col-md-12 text-center">
                             <div class="loading">Loading</div>
                             <div class="error-message"></div>
+                            @{
+                                string style = "";
+                                if (Model.Visszajelzes != "")
+                                {
+                                    style = "style=\"display:block\"";
+                                }
+                            }
                             <div class="sent-message">@Model.Visszajelzes</div>
-                            <button type="submit">Küldés</button>
+                            <button type="submit" @style>Küldés</button>
                         </div>
                     </div>
                 </form>
