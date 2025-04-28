@@ -28,6 +28,10 @@ namespace Gyakorlo.Controllers
                     MatematikaElso generator = new MatematikaElso(10);
                     model = new Feladatlap() { Feladatok=generator.Feladatok, Evfolyam=osztaly, Tipus="Gyakorlas"};
                     break;
+               /* case 2:
+                    MatematikaMasodik generator = new MatematikaMasodik(10);
+                    model = new Feladatlap() { Feladatok = generator.Feladatok, Evfolyam = osztaly, Tipus = "Gyakorlas" };
+                   break; */
                 default:
                     model = null;
                     break;
@@ -136,7 +140,7 @@ namespace Gyakorlo.Controllers
                     feladatModel = null;
                     break;
             }
-
+            
 
             return new ViewAsPdf("TemazaroPdf", feladatModel)
             {

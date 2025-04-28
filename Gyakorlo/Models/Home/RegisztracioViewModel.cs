@@ -20,6 +20,8 @@ namespace Gyakorlo.Models.Home
         [Compare("Jelszo", ErrorMessage = "A jelszavak nem egyeznek")]
         public string JelszoUjra { get; set; }
 
+
+
         [Required(ErrorMessage = "Választása kötelező")]
         public string Tipus { get; set; }
     }
